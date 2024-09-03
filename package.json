@@ -4,8 +4,10 @@
   "description": "A node.js application for my travel blog.",
   "main": "server.js",
   "scripts": {
+    "dev": "node --watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Miguel Fortuna",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }
