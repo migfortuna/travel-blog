@@ -45,7 +45,7 @@ const server = createServer((req, res) => {
         data = "Resource does not exist!";
       }
     } else if (req.method == "POST") {
-      if (req.url == "/blogs") {
+      if (req.url == "/blog") {
         data = blogs;
       } else {
         status = 400;
