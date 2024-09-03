@@ -4,8 +4,7 @@
   "description": "A node.js application for my travel blog.",
   "main": "server.js",
   "scripts": {
-    "dev": "node --watch server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --env-file=.env --watch server.js"
   },
   "author": "Miguel Fortuna",
   "license": "ISC",
