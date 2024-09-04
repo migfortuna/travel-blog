@@ -19,42 +19,34 @@
 // person exits the door = callback
 
 import { createServer } from "http";
-import { logger } from "./middleware.js";
-import blogs from "./data.js";
+import { logger, setJsonHeader } from "./middleware.js";
+import {
+  routeNotFound,
+  getAllBlogs,
+  getBlog,
+  createNewBlog,
+} from "./handlers.js";
 
 // this looks so dirty without a framework like Express
 const server = createServer((req, res) => {
   logger(req, res, () => {
-    let status = 200;
-    let data;
-    if (req.method == "GET") {
-      if (req.url == "/blogs") {
-        data = blogs;
-      } else if (req.url.match(/\/blogs\/.+/)) {
-        // regular expression to match the route
-        const slug = req.url.split("/")[2];
-        const blog = blogs.find((blog) => blog.slug == slug);
-        if (!blog) {
-          status = 400;
-          data = "Resource does not exist!";
+    setJsonHeader(req, res, () => {
+      if (req.method == "GET") {
+        if (req.url == "/blogs") {
+          getAllBlogs(req, res);
+        } else if (req.url.match(/\/blogs\/.+/)) {
+          getBlog(req, res);
         } else {
-          data = blogs.find((blog) => blog.slug == slug);
+          routeNotFound(req, res);
         }
-      } else {
-        status = 400;
-        data = "Resource does not exist!";
+      } else if (req.method == "POST") {
+        if (req.url == "/blog") {
+          createNewBlog(req, res);
+        } else {
+          routeNotFound(req, res);
+        }
       }
-    } else if (req.method == "POST") {
-      if (req.url == "/blog") {
-        data = blogs;
-      } else {
-        status = 400;
-        data = "Resource does not exist!";
-      }
-    }
-
-    res.writeHead(status, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ data: data }));
+    });
   });
 });
 
