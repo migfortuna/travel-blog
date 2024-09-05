@@ -1,4 +1,8 @@
 export const logger = (req, res, next) => {
+  const splitUrl = req.url.split("/");
+  if (splitUrl.length > 2) {
+    req.BLOG_SLUG = splitUrl[2];
+  }
   console.log(`${req.method} ${req.url}`);
   next();
 };

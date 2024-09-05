@@ -25,6 +25,8 @@ import {
   getAllBlogs,
   getBlog,
   createNewBlog,
+  updateBlog,
+  deleteBlog,
 } from "./handlers.js";
 
 // this looks so dirty without a framework like Express
@@ -45,6 +47,20 @@ const server = createServer((req, res) => {
         } else {
           routeNotFound(req, res);
         }
+      } else if (req.method == "PUT") {
+        if (req.url.match(/\/blogs\/.+/)) {
+          updateBlog(req, res);
+        } else {
+          routeNotFound(req, res);
+        }
+      } else if (req.method == "DELETE") {
+        if (req.url.match(/\/blogs\/.+/)) {
+          deleteBlog(req, res);
+        } else {
+          routeNotFound(req, res);
+        }
+      } else {
+        routeNotFound(req, res);
       }
     });
   });
