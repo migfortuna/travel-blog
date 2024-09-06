@@ -1,3 +1,3 @@
 Node.js Travel Blog
 
-Node.js
+Basic CRUD application for my travels.
