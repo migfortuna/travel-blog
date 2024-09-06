@@ -19,7 +19,7 @@
 // person exits the door = callback
 
 import { createServer } from "http";
-import { logger, setJsonHeader } from "./middleware.js";
+import { logger, setHeaders } from "./middleware.js";
 import {
   routeNotFound,
   getAllBlogs,
@@ -32,7 +32,7 @@ import {
 // this looks so dirty without a framework like Express
 const server = createServer((req, res) => {
   logger(req, res, () => {
-    setJsonHeader(req, res, () => {
+    setHeaders(req, res, async () => {
       if (req.method == "GET") {
         if (req.url == "/blogs") {
           getAllBlogs(req, res);
